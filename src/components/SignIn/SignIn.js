@@ -25,17 +25,14 @@ const SignIn = ({onRoutChange, loadUser}) => {
                 "password": password
             })
         })
-        // .then(Response => Response.json())
-        // .then( Responsejson => {
-        //     if (Responsejson === "success") {
-        //         onRoutChange("home");
-        //     }
-        // })
+        
         .then(Response => Response.json())
         .then( user => {
             if (user.id) {
                 loadUser(user);
                 onRoutChange("home");
+            } else {
+                window.alert("Invalid email or password")
             }
         
         })
