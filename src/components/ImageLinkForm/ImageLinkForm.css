@@ -73,7 +73,7 @@ span {
     /* display: flex;
     flex-wrap: wrap; */
     inline-size: min-content;
-    width: 500px;
+    width: auto;
     height: fit-content;
     background-color: #ced4da;
     text-align: center;
