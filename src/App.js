@@ -25,6 +25,7 @@ function App() {
  
 
   const [rout, setrout] = React.useState("defult");
+  const [language, setLanguage] = React.useState("")
   const [isSignedIn, setisSignedIn] =React.useState(false);
   const [user, setuser] = React.useState({
     id: "",
@@ -44,14 +45,18 @@ function App() {
     joined: data.joined
     })
   }
-   let text1;
+  
+  
 
 
   const onBsub = () =>{
+    // setLanguage($('#language').val())
+    console.log(language)
     var formData = new FormData();
     formData.append('image', $('#YOUR_IMAGE_FILE')[0].files[0]);
     formData.append("apikey"  , "K89117377888957");
     formData.append("isOverlayRequired", true);
+    formData.append("language"   , language);
     $.ajax({
       url: 'https://api.ocr.space/parse/image',
       data: formData,
@@ -225,7 +230,7 @@ function App() {
         ?<div>
           <Logo/>
           <Rank enteries={user.enteries} name={user.name} ></Rank>
-          <ImageLinkForm onBsub={onBsub} />
+          <ImageLinkForm onBsub={onBsub} setLanguage={setLanguage}/>
           <FaceReconition />
         </div>
         : (

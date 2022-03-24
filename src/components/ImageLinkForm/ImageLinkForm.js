@@ -1,8 +1,9 @@
 import React from "react";
 import "./ImageLinkForm.css";
+import $ from "jquery"
 
 
-const ImageLinkForm= ({onBsub}) => {
+const ImageLinkForm= ({onBsub, setLanguage}) => {
 
 
     const [image, setImage] = React.useState("");
@@ -38,6 +39,11 @@ const ImageLinkForm= ({onBsub}) => {
            <p>
                {"This will extract text from images"}
            </p>
+           <label className="" htmlFor="language">Select a language:</label>
+          <select onChange={()=>setLanguage($('#language').val())} className=" w-15 grow f4 link ph3 pv2 dib white bg-light-purple" id="language">
+              <option value="eng" selected>English</option>
+              <option value="ara">Arabic</option>
+          </select><br></br>
            <div className="center">
                <div className="pa4 center form br3 shadow-5">
                     <div className="custom-file file">
