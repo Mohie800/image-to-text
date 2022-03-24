@@ -50,20 +50,28 @@ function App() {
   const onBsub = () =>{
     var formData = new FormData();
     formData.append('image', $('#YOUR_IMAGE_FILE')[0].files[0]);
-    $.ajax(
-    
-    {
-        method: 'POST',
-        headers: {"X-Api-Key": "RvR0gXavg1b+Cl7BgXIbzw==A7h8VpX0Z6qwZnW6"},
-        url: 'https://api.api-ninjas.com/v1/imagetotext',
-        data: formData,
-        enctype: 'multipart/form-data',
-        processData: false,
-        contentType: false, 
-        success: function(data) { 
+    formData.append("apikey"  , "K89117377888957");
+    formData.append("isOverlayRequired", true);
+    $.ajax({
+      url: 'https://api.ocr.space/parse/image',
+      data: formData,
+      dataType: 'json',
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: 'POST',
+      success: function (ocrParsedResult){
+        var parsedResults = ocrParsedResult["ParsedResults"];
+        var ocrExitCode = ocrParsedResult["OCRExitCode"];
+        var isErroredOnProcessing = ocrParsedResult["IsErroredOnProcessing"];
+        var errorMessage = ocrParsedResult["ErrorMessage"];
+        var errorDetails = ocrParsedResult["ErrorDetails"];
+        var processingTimeInMilliseconds = ocrParsedResult["ProcessingTimeInMilliseconds"];
 
-          if (data){
-            fetch("https://mohieapp.herokuapp.com/image", {
+        //If we have got parsed results, then loop over the results to do something
+        if (parsedResults!= null) {
+
+          fetch("https://mohieapp.herokuapp.com/image", {
                 method: "put",
                 headers: {"content-type": "application/JSON"},
                 body: JSON.stringify({"id": user.id}
@@ -75,19 +83,51 @@ function App() {
                   "id":user.id,
                   "email":user.email,
                   "name":user.name})
-              })
-              }
-            for (let i=0; i<data.length; i++) {
-                text1 = data[i].text;
-                $('span').append(text1+" ");
-            };
-            
-        },
-        error: function ajaxError(jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.responseText);
-        },
-    });
-  };
+              });
+
+          //Loop through the parsed results
+          $.each(parsedResults, function (index, value) {
+          var exitCode = value["FileParseExitCode"];
+          var parsedText = value["ParsedText"];
+          var errorMessage = value["ParsedTextFileName"];
+          var errorDetails = value["ErrorDetails"];
+          
+          var textOverlay = value["TextOverlay"];
+          var pageText = '';
+          switch (+exitCode) {
+          case 1:
+          pageText = parsedText;
+          break;
+          case 0:
+          case -10:
+          case -20:
+          case -30:
+          case -99:
+          default:
+          pageText += "Error: " + errorMessage;
+          break;
+          }
+          
+          const TextF = $.each(textOverlay["Lines"], function (index, value) {
+          
+           return (
+             <div style={{maxHeight: value.MaxHeight, marginTop: value.MinTop}}>{value.LineText}</div>
+           )
+
+          //LOOP THROUGH THE LINES AND GET WORDS TO DISPLAY ON TOP OF THE IMAGE AS OVERLAY
+         
+          });
+          
+          // console.log("me",parsedText)
+
+          $('span').append(parsedText);
+          //YOUR CODE HERE
+
+          });
+          }
+      }
+    })
+    };
  
   
   const onRoutChange = (r1)=> {
