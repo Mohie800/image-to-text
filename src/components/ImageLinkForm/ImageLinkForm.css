@@ -59,8 +59,9 @@ button, input {
 }
 
 .image1 {
-    height: 650px;
+    height: auto;
     width: auto;
+    max-width: 100%;
 }
 
 .text1 {
@@ -81,7 +82,13 @@ span {
     border-right: 10px;
     margin-left: 10px;
     margin-right: 10px;
-    max-width: 140em;
+    max-width: 100%;
     padding: 2px;
+    
 
+}
+
+.cont {
+    position: relative;
+    text-align: center;
 }

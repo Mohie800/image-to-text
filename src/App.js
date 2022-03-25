@@ -9,6 +9,7 @@ import FaceReconition from './components/FaceReconition/FaceReconition';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 import $ from 'jquery';
+import fitty from 'fitty';
 
 
 
@@ -25,7 +26,7 @@ function App() {
  
 
   const [rout, setrout] = React.useState("defult");
-  const [language, setLanguage] = React.useState("")
+  const [language, setLanguage] = React.useState("eng")
   const [isSignedIn, setisSignedIn] =React.useState(false);
   const [user, setuser] = React.useState({
     id: "",
@@ -113,19 +114,27 @@ function App() {
           break;
           }
           
-          const TextF = $.each(textOverlay["Lines"], function (index, value) {
-          
-           return (
-             <div style={{maxHeight: value.MaxHeight, marginTop: value.MinTop}}>{value.LineText}</div>
-           )
+          $.each(textOverlay["Lines"], function (index, value) {
+
+            // value.Words.map(el => $('#zoot').append(`<div class="zota" style="position: absolute; height:${el.Height}px; left:${el.Left}px; top:${el.Top}px; width:${el.Width}" ><p class="zoota">${el.WordText}</p></div>`))
+            
+
+            // $('#image2').append(`<div style="max-height: ${value.MaxHeight}; margin-top: ${value.MinTop}">${value.LineText}</div>`)
+            
+           $('span').append(`<div >${value.LineText}</div>`)
+
 
           //LOOP THROUGH THE LINES AND GET WORDS TO DISPLAY ON TOP OF THE IMAGE AS OVERLAY
+
+          
          
           });
           
-          // console.log("me",parsedText)
+         
 
-          $('span').append(parsedText);
+          // fitty('.zoota')
+          
+          // $('span').append(parsedText);
           //YOUR CODE HERE
 
           });

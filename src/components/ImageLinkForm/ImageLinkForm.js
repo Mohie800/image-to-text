@@ -56,7 +56,9 @@ const ImageLinkForm= ({onBsub, setLanguage}) => {
                     <button className=" w-30 grow f4 link ph3 pv2 dib white bg-light-purple" onClick={onBsub}>Detect</button>
                </div>
            </div>
+           <div className="cont" id="zoot">
            {result && <img id="image2" className="image1" ref={imageRef} src={result} alt="" />}
+           </div>
            <br></br>
            <div className="text1 center">   
                 <span className="f6 f5-ns lh-copy measure mw5">
