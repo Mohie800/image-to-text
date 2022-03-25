@@ -33,6 +33,10 @@ const Register = ({onRoutChange, loadUser}) => {
             if (user.id) {
                 loadUser(user);
                 onRoutChange("home");
+            } else if (user === "invalid") {
+                window.alert("please enter valid information")
+            } else {
+                window.alert("User already exist")
             }
         })
     }
