@@ -2,6 +2,8 @@ import React from "react";
 
 const Register = ({onRoutChange, loadUser}) => {
 
+    const [viewPassword, setViewPassword] = React.useState(false);
+
     const [remail, setremail] = React.useState("");
     const [rpassword, setrpassword] = React.useState("");
     const [rname, setRName] = React.useState("");
@@ -57,7 +59,11 @@ const Register = ({onRoutChange, loadUser}) => {
                 </div>
                 <div className="mv3">
                     <label className="b--black db fw6 lh-copy f6" htmlFor="password">Password</label>
-                    <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" onChange={onRPasswardChange}/>
+                    <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type={viewPassword?"text":"password"} name="password"  id="password" onChange={onRPasswardChange}/>
+                    <div className="flex items-center mb2">
+                        <label className="b--black db fw6 lh-copy f6 mr2" htmlFor="view-password">View Password</label>
+                        <input className="mr2" type="checkbox" onChange={()=>setViewPassword(!viewPassword)} id="view-password"/>
+                    </div>
                 </div>
                 </fieldset>
                 <div className="">
