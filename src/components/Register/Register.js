@@ -21,7 +21,7 @@ const Register = ({onRoutChange, loadUser}) => {
     }
 
     const onSubmitRegister = ()=> {
-        fetch("https://mohieapp.herokuapp.com/register",{
+        fetch("https://eager-ruby-pinafore.cyclic.app/register",{
             method: "post",
             headers: {"content-type": "application/JSON"},
             body: JSON.stringify({
